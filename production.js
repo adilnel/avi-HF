@@ -2135,45 +2135,17 @@ composer.addPass( fxaaPass );
 
 function onDocumentMouseMove( event ) {
         camera.position.y= 1.2;
-        // if(event.clientX !== 0 || event.clientX ){
-        //     mouseX = ( event.clientX - windowHalfX )*0.0005;
-        //     camera.position.x += ( mouseX - camera.position.x ) * 0.005;
-        // }else{
-        //     console.log("else")
-        //     mouseX = ( 1 - windowHalfX )*0.0005;
-        //     camera.position.x += ( mouseX - camera.position.x ) * 0.005;
-
-        // mouseX = ( event.clientX - windowHalfX );
-        // mouseY = ( event.clientY - windowHalfY );
         mouseX = ( event.clientX - windowHalfX )*0.002;
         mouseY = ( event.clientY - windowHalfY ) * 0.005;
         camera.position.x += ( mouseX - camera.position.x ) * 0.005;
         camera.position.y += ( - mouseY - camera.position.y ) * 0.005;
         console.log(camera)
         camera.LookAt = scene.children[6]
-        // camera.LookAt =(20,20,0)
         console.log(camera)
-        // scene.children[7].children[1].rotation.x += (Math.PI/60 *(( - mouseY - camera.position.y ) * 0.02))
-        // 	scene.children[7].children[1].rotation.y += (Math.PI/60 *(( mouseX - camera.position.x ) * 0.05))
         camera.updateProjectionMatrix();
-        // console.log(scene.children[0].rotation)
+
     mouseX = ( event.clientX - windowHalfX );
         mouseY = ( event.clientY - windowHalfY );
-    let	targetX = mouseX * .001;
-    let targetY = mouseY * .001;
-
-    if ( scene ) {
-
-        // scene.children[6].rotation.y += 0.005 * ( targetX - scene.children[6].rotation.y );
-        // scene.children[6].rotation.x += 0.005 * ( targetY - scene.children[6].rotation.x );
-
-        // camera.rotation.y -= 0.0001 * ( targetX - camera.rotation.y );
-        // camera.rotation.x -= 0.0002 * ( targetY - camera.rotation.x );
-        // scene.children[7].rotation.y += 0.005 * ( targetX - scene.children[7].rotation.y );
-        // scene.children[7].rotation.x += 0.005 * ( targetY - scene.children[7].rotation.x );
-
-    }
-
 
     }
 function onWindowResize() {

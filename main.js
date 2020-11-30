@@ -1,17 +1,11 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
+import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 
-// import * as THREE from './three.min copy.js';
-// import * as Physijs from './physijs/physi.js';
-
-// import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
 import { EffectComposer } from './jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from './jsm/postprocessing/ShaderPass.js';
-import { BloomPass } from './jsm/postprocessing/BloomPass.js';
-import { CopyShader } from './jsm/shaders/CopyShader.js';
 
+import { FXAAShader } from './jsm/shaders/FXAAShader.js';
 
 
 // This THREEx helper makes it easy to handle the mouse events in your 3D scene
@@ -1945,11 +1939,14 @@ let container;
 
 					var c;
 					var objectstest = [];
+					let group,phone,
+					fxaaPass,
+					// windowHalfX = window.innerWidth / 2
+// ,windowHalfY = window.innerHeight / 2
+// ,mouseX = windowHalfX
+// ,mouseY = windowHalfY;
 
-
-
-
-					var back = false;
+					 back = false;
 var meshes = new Array();
 var meshl = new Array();
 var meshr = new Array();
@@ -2012,6 +2009,23 @@ light_4.shadow.camera.near = 1;
 light_4.shadow.camera.far = 16;
 scene.add( light_4 );
 
+
+
+let shader = THREE.ShaderChunk.shadowmap_pars_fragment;
+
+shader = shader.replace(
+'#ifdef USE_SHADOWMAP',
+'#ifdef USE_SHADOWMAP' +
+document.getElementById( 'PCSS' ).textContent
+);
+
+shader = shader.replace(
+'#if defined( SHADOWMAP_TYPE_PCF )',
+document.getElementById( 'PCSSGetShadow' ).textContent +
+'#if defined( SHADOWMAP_TYPE_PCF )'
+);
+
+THREE.ShaderChunk.shadowmap_pars_fragment = shader;
 // Example #2 - Sphere (geometry) union Cube (geometry)
 
 
@@ -2092,6 +2106,33 @@ scene.add( light_4 );
 // 	z:-160.55947875976563}}, k
 // ( 250, 0, -160 );
 // cylinderHelper(250,265,-160)
+
+
+// phone ******************
+
+const overlayui = document.querySelector(".overlayui")
+overlayui.addEventListener("click", ()=> {if(video.currentTime == 0){video.play()}})
+const loader = new FBXLoader();
+loader.load( 'models/fbx/phone (2).fbx', function ( object ) {
+	object.traverse( function ( child ) {
+
+		if ( child.isMesh ) {
+			child.castShadow = true;
+			child.receiveShadow = true;
+		}
+	} );
+
+	object.scale.set(-0.015,0.015,0.015)
+	object.position.set(0,2.5,-0.1)
+	scene.add( object );
+	object.rotation.z = Math.PI;
+	let video = document.getElementById( 'video' );
+	let texture = new THREE.VideoTexture( video );
+	let materialphone = new THREE.MeshBasicMaterial( { map: texture } );
+	object.children[1].material[1] = materialphone
+
+
+} );
 
 function cylinderHelper(x,y,z){
 	var ground2 = new Physijs.BoxMesh( new THREE.BoxBufferGeometry( 2, y+100,80 ), ground_material2, 0 );
@@ -2197,24 +2238,43 @@ emissiveIntensity: 0.15
 
 
 
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				// document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+
+
+				renderer = new THREE.WebGLRenderer(  );
+				renderer.autoClear = false;
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.shadowMap.enabled = true;
+				renderer.gammaFactor=2.2;
+				renderer.physicallyCorrectLights = true;
+				renderer.outPutEncoding = THREE.sRGBEncoding;
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+				renderer.shadowMap.CullFace = THREE.CullFaceBack;
+
+
+				// postprocessing
+
+				const renderModel = new RenderPass( scene, camera );
+				fxaaPass = new ShaderPass( FXAAShader );
+
+			const pixelRatio = renderer.getPixelRatio();
+
+			fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( container.offsetWidth * pixelRatio );
+			fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( container.offsetHeight * pixelRatio );
+
+			composer = new EffectComposer( renderer );
+			composer.addPass( renderModel );
+			composer.addPass( fxaaPass );
 
 
 
-                // window.addEventListener( 'resize', onWindowResize, false );
 
 
 
-                // function onWindowResize() {
-
-                //     windowHalfX = window.innerWidth / 2;
-                //     windowHalfY = window.innerHeight / 2;
-
-                //     camera.aspect = window.innerWidth / window.innerHeight;
-                //     camera.updateProjectionMatrix();
-
-                //     renderer.setSize( window.innerWidth, window.innerHeight );
-                //     composer.setSize( window.innerWidth, window.innerHeight );
 
                 // }
 
@@ -2246,13 +2306,13 @@ emissiveIntensity: 0.15
 
                 // postprocessing
 
-				const renderModel = new RenderPass( scene, camera );
+				// const renderModel = new RenderPass( scene, camera );
 				// const effectBloom = new BloomPass( 0.3 );
 				// const effectCopy = new ShaderPass( CopyShader );
 
-				composer = new EffectComposer( renderer );
+				// composer = new EffectComposer( renderer );
 
-				composer.addPass( renderModel );
+				// composer.addPass( renderModel );
 				// composer.addPass( effectBloom );
 				// composer.addPass( effectCopy );
 
@@ -2370,7 +2430,8 @@ function TEST3(){
 // }
 
 
-
+window.addEventListener( 'resize', onWindowResize, false );
+document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 function testingmore(){
 	if(c !== 1){
 		scene.simulate( undefined, 1 )
@@ -2381,44 +2442,49 @@ function testingmore(){
 
 
 
-			function animate() {
-
-				TWEEN.update();
-				requestAnimationFrame( animate );
-				render()
-				testingmore()
 
 
+			function onDocumentMouseMove( event ) {
+				camera.position.y= 1.2;
+				mouseX = ( event.clientX - windowHalfX )*0.002;
+				mouseY = ( event.clientY - windowHalfY ) * 0.005;
+				camera.position.x += ( mouseX - camera.position.x ) * 0.005;
+				camera.position.y += ( - mouseY - camera.position.y ) * 0.005;
+				console.log(camera)
+				camera.LookAt = scene.children[6]
+				console.log(camera)
+				camera.updateProjectionMatrix();
 
-
-
-                // scene.simulate( );
-				// renderer.render( scene, camera );
-
-
+			mouseX = ( event.clientX - windowHalfX );
+				mouseY = ( event.clientY - windowHalfY );
 
 			}
+		function onWindowResize() {
 
+			camera.aspect = ( container.offsetWidth ) / container.offsetHeight;
+			camera.updateProjectionMatrix();
 
-			function render() {
+			renderer.setSize( container.offsetWidth, container.offsetHeight );
+			composer.setSize( container.offsetWidth, container.offsetHeight );
+			const pixelRatio = renderer.getPixelRatio();
 
-                // if(mouseX !==0){
-                    // camera.position.y=180;
-                    // camera.position.set( 0, 180, 656 );
-                    // camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-				    // camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-                // }
+			fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( container.offsetWidth * pixelRatio );
+			fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( container.offsetHeight * pixelRatio );
 
-				renderer.clear();
-                composer.render();
-				// camera.lookAt(0,180,0);
+		}
 
+		//
 
+		function animate() {
+			TWEEN.update();
+				requestAnimationFrame( animate );
+				// render()
+				testingmore()
+			renderer.clear();
+			composer.render();
+			requestAnimationFrame( animate );
 
-
-
-            }
-
+		}
 
             init();
 				animate();
