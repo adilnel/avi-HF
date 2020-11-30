@@ -24,10 +24,10 @@
           }
 		  .logo{
 			position: absolute;
-			top :0;
-			left: 0;
-			width :250px;
-			height:250px
+			top :75px;
+			left: 75px;
+			width :29%;
+			height:auto;
 		  }
 
 		  .link{
@@ -41,8 +41,8 @@
 			position: absolute;
 			  left :0;
 			bottom: 0;
-			width :250px;
-			height:250px
+			width :100%;
+			height:100%;
 		  }
 		  .clients img{
 			  width: 100%;
@@ -52,29 +52,73 @@
 	color: white;
 	font-size: 20px;
 }
+.row-1{
+	display: flex;
+	flex-direction: row;
+}
+.row-1{
+	flex:1;
+}
+.row-1 img{
+height: 60px;
+}
+
     </style>
     <!-- <div id="container"></div> -->
     <div class="overlayui">
-		<img src="logo_2.jpg" alt="" class="logo">
+		<img src="logo.svg" alt="" class="logo">
 		<span class="link">
 			<a href="">abc</a>
 		</span>
 
 
-
+		<a class="fas">Our Clients</a>
 		<div class="info2">
-			<i class="fas">Our Clients</i>
-			<div class="inner-info">
-			  <div class="inner-info-txt">
 
-				<h2>How to guide</h2>
-				<p>
-				  A really simple and cool guide there was no need to change
-				  anything.
-				</p>
-			  </div>
-			  <iframe width="560" height="215" src="https://www.youtube.com/embed/POX3dT-pB4E" frameborder="0"
-				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<div class="inner-info">
+
+			<div class="content-wrapper">
+<!-- client logos -->
+<h2>Our Clients</h2>
+
+
+<div class="row-1">
+	<img src="./logos/logo-chempion.svg" alt="">
+	<img src="./logos/logo-amex.svg" alt="">
+	<img src="./logos/logo-discount.svg" alt="">
+	<img src="./logos/logo-delek.svg" alt="">
+	<img src="./logos/logo-electra.svg" alt="">
+</div>
+<div class="row-1">
+	<img src="./logos/logo-eldan.svg" alt="">
+	<img src="./logos/logo-isracard.svg" alt="">
+	<img src="./logos/logo-aig.svg" alt="">
+	<img src="./logos/logo-jewish-agency.svg" alt="">
+	<img src="./logos/logo-migdal.svg" alt="">
+</div>
+<div class="row-1">
+	<img src="./logos/logo-libra.svg" alt="">
+	<img src="./logos/logo-passportcard.png" alt="">
+	<img src="./logos/logo-jacada.svg" alt="">
+	<img src="./logos/logo-volkswagen.svg" alt="">
+	<img src="./logos/logo-mediwho.svg" alt="">
+</div>
+<div class="row-1">
+	<img src="./logos/logo-microsoft.png" alt="">
+	<img src="./logos/logo-paamonim.png" alt="">
+	<img src="./logos/logo-priority.svg" alt="">
+	<img src="./logos/logo-sears.svg" alt="">
+	<img src="./logos/logo-refael.svg" alt="">
+</div>
+<div class="row-1">
+	<img src="./logos/logo-purina.svg" alt="">
+	<img src="./logos/logo-sodastream.svg" alt="">
+	<img src="./logos/logo-super-pharm.svg" alt="">
+	<img src="./logos/logo-vesttoo.svg" alt="">
+
+</div>
+			</div>
+
 			</div>
 		  </div>
 			<div class="btn-wraper">
@@ -190,5 +234,26 @@
     <!-- <script src="threex.domevents.js"></script> -->
     <!-- <script src="./main2.js"></script> -->
 
+
+
+
+	<script>
+		let fas = document.querySelector(".fas")
+		let info2 = document.querySelector(".info2")
+		let inner_info = document.querySelector(".inner-info")
+		fas.addEventListener("click", ()=>
+		{
+			if(fas.innerHTML !== "Close"){
+				inner_info.classList.add("inner-info-hover")
+				info2.classList.add("transform")
+				fas.innerHTML = "Close";
+			}else{
+				inner_info.classList.remove("inner-info-hover")
+				fas.innerHTML = "Our Clients";
+				info2.classList.remove("transform")
+			}
+
+	})
+	</script>
 </body>
 </html>
