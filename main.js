@@ -1985,7 +1985,7 @@ for (let i = 0; i < arr.length; i++) {
 
    /* Init the scene */
    scene = new Physijs.Scene();
-   scene.setGravity( new THREE.Vector3( 0, -200, 0));
+   scene.setGravity( new THREE.Vector3( 0, -20, 0));
 
    scene.background = new THREE.Color( 0xae1901 )
 
@@ -2060,8 +2060,9 @@ whitelight.convertSRGBToLinear();
 			// roughness:1,
 			// metalness:0,
 
-                    } ),
-                    1, 1
+					} ),
+					// פיזיקה רצפה
+                    0.5,0.9
                 );
                 var ground = new Physijs.BoxMesh( new THREE.BoxGeometry( 14, 0.5, 14 ), ground_material, 0 );
                 ground.position.set(-0.61,-1.2,-2.9);
@@ -2165,8 +2166,9 @@ metalness:0.05,
 emissive:0x991503,
 emissiveIntensity: 0.15
 
-        } ),
-        0.5,0.5
+		} ),
+		// פיזיקה כדורים
+        0.2,0.3
     );
 
     /* Create spheres */
