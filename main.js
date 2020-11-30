@@ -1985,7 +1985,7 @@ for (let i = 0; i < arr.length; i++) {
 
    /* Init the scene */
    scene = new Physijs.Scene();
-   scene.setGravity( new THREE.Vector3( 0, -200, 0));
+   scene.setGravity( new THREE.Vector3( 0, -20, 0));
 
    scene.background = new THREE.Color( 0xae1901 )
 
@@ -2020,15 +2020,18 @@ scene.add( light_4 );
 
                     antialias: true,
                   });
+				  renderer.setPixelRatio( window.devicePixelRatio );
+				  renderer.setSize( window.innerWidth, window.innerHeight );
+				  container.appendChild( renderer.domElement );
+
+				  renderer.outputEncoding = THREE.sRGBEncoding;
 				  renderer.shadowMap.enabled = true;
-				//   renderer.gammaFactor=2.2;
-				//   renderer.physicallyCorrectLights = true;
+				  renderer.gammaFactor=2.2;
+				  renderer.physicallyCorrectLights = true;
 				  renderer.outPutEncoding = THREE.sRGBEncoding;
 				  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				  renderer.shadowMap.CullFace = THREE.CullFaceBack;
-                renderer.setPixelRatio( window.devicePixelRatio );
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
 
 
@@ -2038,12 +2041,6 @@ scene.add( light_4 );
 
                 renderer.autoClear = false;
 
-// LIGHTS
-// light_3 trash light
-let redlight = new THREE.Color(0xff0000)
-redlight.convertSRGBToLinear();
-let whitelight = new THREE.Color(0xffffff)
-whitelight.convertSRGBToLinear();
 
 
 
@@ -2052,7 +2049,8 @@ whitelight.convertSRGBToLinear();
 
 
 
-				let maincolor = new THREE.Color(0xD90000)
+
+				let maincolor = new THREE.Color(0xfe2a05)
 				maincolor.convertSRGBToLinear();
                 var ground_material = Physijs.createMaterial(
                     new THREE.MeshStandardMaterial( {
