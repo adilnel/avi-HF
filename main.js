@@ -1985,7 +1985,7 @@ for (let i = 0; i < arr.length; i++) {
 
    /* Init the scene */
    scene = new Physijs.Scene();
-   scene.setGravity( new THREE.Vector3( 0, -20, 0));
+   scene.setGravity( new THREE.Vector3( 0, -12, 0));
 
    scene.background = new THREE.Color( 0xae1901 )
 
