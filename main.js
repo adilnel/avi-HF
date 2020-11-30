@@ -1946,22 +1946,17 @@ let container;
 // ,mouseX = windowHalfX
 // ,mouseY = windowHalfY;
 
-					 back = false;
-var meshes = new Array();
-var meshl = new Array();
-var meshr = new Array();
-					const textures = [];
-const loader = new THREE.TextureLoader();
+// 					 back = false;
+// var meshes = new Array();
+// var meshl = new Array();
+// var meshr = new Array();
+// 					const textures = [];
+loader = new THREE.TextureLoader();
 loader.crossOrigin = "";
-var arr = [
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/30256/jungle.jpg',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/30256/1200_bodie-11.jpg',
-    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/30256/1200_110627-8240-Myst.jpg'
-];
 
-for (let i = 0; i < arr.length; i++) {
-    textures[i] = loader.load(arr[i]);
-}
+// for (let i = 0; i < arr.length; i++) {
+//     textures[i] = loader.load(arr[i]);
+// }
 
             function init() {
 
@@ -1975,7 +1970,7 @@ for (let i = 0; i < arr.length; i++) {
                 camera.position.x = 0;
     camera.position.y = 1.2;
     camera.position.z = 13.8;
-    // scene.add( camera );
+
     camera.LookAt = (0,10.2,0)
 
 
@@ -2032,27 +2027,21 @@ THREE.ShaderChunk.shadowmap_pars_fragment = shader;
 
 				renderer = new THREE.WebGLRenderer({
 
-                    antialias: true,
+                    // antialias: true,
                   });
 				  renderer.setPixelRatio( window.devicePixelRatio );
 				  renderer.setSize( window.innerWidth, window.innerHeight );
-				  container.appendChild( renderer.domElement );
+				//   container.appendChild( renderer.domElement );
 
 				  renderer.outputEncoding = THREE.sRGBEncoding;
 				  renderer.shadowMap.enabled = true;
 				  renderer.gammaFactor=2.2;
 				  renderer.physicallyCorrectLights = true;
 				  renderer.outPutEncoding = THREE.sRGBEncoding;
-				  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+				//   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 				  renderer.shadowMap.CullFace = THREE.CullFaceBack;
 
 				container.appendChild( renderer.domElement );
-
-
-
-
-
-
                 renderer.autoClear = false;
 
 
@@ -2188,7 +2177,7 @@ function cylinderHelper(x,y,z){
 objects.forEach(object => {
     // console.log(object.translation)
 	scene.add(createDrop(object));
-	cylinderHelper(object.translation.x,object.translation.y, object.translation.z);
+	// cylinderHelper(object.translation.x,object.translation.y, object.translation.z);
 
 });
 
@@ -2231,31 +2220,6 @@ emissiveIntensity: 0.15
 }
 
 
-
-
-
-
-
-
-
-				// document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-
-
-				renderer = new THREE.WebGLRenderer(  );
-				renderer.autoClear = false;
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( renderer.domElement );
-
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.shadowMap.enabled = true;
-				renderer.gammaFactor=2.2;
-				renderer.physicallyCorrectLights = true;
-				renderer.outPutEncoding = THREE.sRGBEncoding;
-				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-				renderer.shadowMap.CullFace = THREE.CullFaceBack;
-
-
 				// postprocessing
 
 				const renderModel = new RenderPass( scene, camera );
@@ -2276,73 +2240,40 @@ emissiveIntensity: 0.15
 
 
 
-                // }
-
-
-
-                function onDocumentMouseMove( event ) {
-                    console.log(camera.position.x)
-                    console.log(camera.position.y)
-                    camera.position.y=180;
-                    if(event.clientX !== 0 || event.clientX ){
-                        console.log("hi")
-                        mouseX = ( event.clientX - windowHalfX )*0.5;
-                        camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-                    }else{
-                        console.log("else")
-                        mouseX = ( 1 - windowHalfX )*0.5;
-                        camera.position.x += ( mouseX - camera.position.x ) * 0.05;
-                    }
-
-                    mouseX = ( event.clientX - windowHalfX )*0.3;
-                    mouseY = ( event.clientY - windowHalfY ) * 0.3;
-                    camera.position.x += ( mouseX - camera.position.x ) * 0.02;
-				    camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
-
-                    camera.updateProjectionMatrix();
-
                 }
 
 
-                // postprocessing
-
-				// const renderModel = new RenderPass( scene, camera );
-				// const effectBloom = new BloomPass( 0.3 );
-				// const effectCopy = new ShaderPass( CopyShader );
-
-				// composer = new EffectComposer( renderer );
-
-				// composer.addPass( renderModel );
-				// composer.addPass( effectBloom );
-				// composer.addPass( effectCopy );
 
 				//
-setTimeout(() => {
-	// TEST();
-	// TEST1();
-	// TEST3();
 
+			// }
 
+function test(){
 
-	setInterval(() => {
-		TEST();
+	setTimeout(() => {
+		// TEST();
+		// TEST1();
+		// TEST3();
+
 		reversegravity()
-	}, 3000);
-},3000);
-			}
 
-
+		// setInterval(() => {
+			// TEST();
+			// reversegravity()
+		// }, 3000);
+	},1000);
+}
+test();
 // reverse gravity
-let gforce = -200;
+let gforce = -20;
 function reversegravity(){
-	console.log("hi")
 	gforce = gforce*-1
 	scene.setGravity( new THREE.Vector3( 0, gforce, 0));
-	testingmore()
+	// testingmore()
 }
 
 
- function TEST(){
+//  function TEST(){
 
 	// var color = objectstest[0].material.color;
 	// var tween = new TWEEN.Tween(color).to({r: 1, g: 9, b: 1} ,3000)
@@ -2350,64 +2281,66 @@ function reversegravity(){
 
 
 
-	for (let index = 0; index < objectstest.length; index++) {
-		colortween(index)
+// 	for (let index = 0; index < objectstest.length; index++) {
+// 		colortween(index)
 
 
-}
- }
+// }
 
- const grey = new THREE.Color(0xD90000);
- const green = {r: 1, g: 9, b: 1};
- let newcolor = green;
- function colortween(index){
-	 let tween = new TWEEN.Tween(objectstest[index].material.color).to(newcolor ,2000)
-	tween.easing(TWEEN.Easing.Back.EaseInOut)
-	tween.onComplete(function() {
-		if(newcolor == green ){
-			newcolor = grey;
-		}else{
-			newcolor = green
-		}
-	  });
-		tween.start();
- }
+//  }
+
+//  const grey = new THREE.Color(0xD90000);
+//  const green = {r: 1, g: 9, b: 1};
+//  let newcolor = green;
+//  function colortween(index){
+// 	 let tween = new TWEEN.Tween(objectstest[index].material.color).to(newcolor ,2000)
+// 	tween.easing(TWEEN.Easing.Back.EaseInOut)
+// 	tween.onComplete(function() {
+// 		if(newcolor == green ){
+// 			newcolor = grey;
+// 		}else{
+// 			newcolor = green
+// 		}
+// 	  });
+// 		tween.start();
+//  }
 let X = 0;
 
-function TEST3(){
+// function TEST3(){
 	// c = 1;
-	scene.setGravity( new THREE.Vector3( 0, 0, 0));
-	for (let index = 0; index < objectstest.length; index++) {
-		objectstest[index].__dirtyPosition = true;
-		objectstest[index].angularVelocity = new THREE.Vector3( 0, 0, 0);
-		objectstest[index].linearVelocity = new THREE.Vector3( 0, 0, 0);
+	// scene.setGravity( new THREE.Vector3( 0, 0, 0));
+	// for (let index = 0; index < objectstest.length; index++) {
+	// 	objectstest[index].__dirtyPosition = true;
+	// 	objectstest[index].angularVelocity = new THREE.Vector3( 0, 0, 0);
+	// 	objectstest[index].linearVelocity = new THREE.Vector3( 0, 0, 0);
 		// objectstest[index]._physijs.position.y = 200;
 		// objectstest[index]._physijs.position.y = 200;
-		let tween = new TWEEN.Tween(objectstest[index].position).to(objects[index].translation ,3000)
-		tween.easing(TWEEN.Easing.Back.EaseOut)
+	// 	let tween = new TWEEN.Tween(objectstest[index].position).to(objects[index].translation ,3000)
+	// 	tween.easing(TWEEN.Easing.Back.EaseOut)
 
 
 
-		tween.onComplete(function() {
+	// 	tween.onComplete(function() {
 
-			objectstest[index].__dirtyPosition = false;
-		  });
+	// 		objectstest[index].__dirtyPosition = false;
+	// 	  });
 
-			tween.start();
-			X++
-	}
-	console.log(objectstest[0])
-	setTimeout(() => {
+	// 		tween.start();
+	// 		X++
+	// }
+	// console.log(objectstest[0])
+	// setTimeout(() => {/
 		// console.log()
 		// scene.onSimulationResume();
 
-		scene.simulate( ).clear;
-		scene.setGravity( new THREE.Vector3( 0, -100, 0));
+		// scene.simulate( ).clear;
+		// scene.setGravity( new THREE.Vector3( 0, -100, 0));
 		// c = 0;
 
-	},5000);
+	// },5000);
 
-}
+
+// }
 
 //  function TEST1(){
 
@@ -2430,29 +2363,29 @@ function TEST3(){
 // }
 
 
+
+// function testingmore(){
+// 	if(c !== 1){
+// 		scene.simulate( undefined, 1 )
+
+// 	};
+
+// }
+
+
+
 window.addEventListener( 'resize', onWindowResize, false );
 document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-function testingmore(){
-	if(c !== 1){
-		scene.simulate( undefined, 1 )
-
-	};
-
-}
-
-
-
-
 
 			function onDocumentMouseMove( event ) {
 				camera.position.y= 1.2;
 				mouseX = ( event.clientX - windowHalfX )*0.002;
 				mouseY = ( event.clientY - windowHalfY ) * 0.005;
-				camera.position.x += ( mouseX - camera.position.x ) * 0.005;
+				camera.position.x += ( mouseX - camera.position.x ) * 0.002;
 				camera.position.y += ( - mouseY - camera.position.y ) * 0.005;
-				console.log(camera)
-				camera.LookAt = scene.children[6]
-				console.log(camera)
+				// console.log(camera)
+				// camera.LookAt = scene.children[6]
+				// console.log(camera)
 				camera.updateProjectionMatrix();
 
 			mouseX = ( event.clientX - windowHalfX );
@@ -2476,13 +2409,13 @@ function testingmore(){
 		//
 
 		function animate() {
-			TWEEN.update();
+			// TWEEN.update();
 				requestAnimationFrame( animate );
 				// render()
-				testingmore()
+				// testingmore()
 			renderer.clear();
 			composer.render();
-			requestAnimationFrame( animate );
+			// requestAnimationFrame( animate );
 
 		}
 

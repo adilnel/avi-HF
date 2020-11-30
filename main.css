@@ -82,3 +82,59 @@ a, button, input, select {
 	margin-top: 20px;
 	padding: 10px;
 }
+
+.inner-info {
+	position: absolute;
+	left: -75px;
+	top: 100%;
+	width: 100vw;
+    height: 100vh;
+	display: flex;
+	background: #000;
+	padding: 2rem;
+	transition: all 0.5s ease-out;
+	clip-path: circle(25px at 30px 30px);
+  }
+
+  .inner-info .inner-info-txt {
+	flex: 1;
+	padding-right: 2rem;
+  }
+
+  .inner-info iframe {
+	flex: 1;
+  }
+
+  .inner-info:hover {
+	clip-path: circle(75%);
+	background: #f4f4f4f4;
+	border-top: 4px solid rgba(0, 0, 0, 0.2);
+	border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+  }
+
+  .inner-info i {
+	color: white;
+	position: absolute;
+	left: 27px;
+	top: 20px;
+	font-weight: bold;
+  }
+
+  .inner-info:hover i {
+	opacity: 0;
+  }
+
+.info2 {
+    /* display: none; */
+  }
+
+.info2 {
+	position: absolute;
+	top: 95%;
+	left: 75px;
+	transition: all 0.5s ease-out;
+  }
+
+  .info2 .inner-info:hover {
+	transform: translateY(-95%);
+  }

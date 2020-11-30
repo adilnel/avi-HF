@@ -13,7 +13,8 @@
       left: 0;
       height: 100%;
       width: 100%;
-      z-index: 999;
+	  z-index: 999;
+	  overflow: hidden;
     }
     .btn-wraper{
           position: absolute;
@@ -21,9 +22,61 @@
           right:0;
           margin: 0 30px 30px 0;
           }
+		  .logo{
+			position: absolute;
+			top :0;
+			left: 0;
+			width :250px;
+			height:250px
+		  }
+
+		  .link{
+			  position: absolute;
+			  top :0;
+			right: 0;
+			width :250px;
+			height:250px
+		  }
+		  .clients{
+			position: absolute;
+			  left :0;
+			bottom: 0;
+			width :250px;
+			height:250px
+		  }
+		  .clients img{
+			  width: 100%;
+			  height: 100%;
+		  }
+.fas{
+	color: white;
+	font-size: 20px;
+}
     </style>
-    <div id="container"></div>
+    <!-- <div id="container"></div> -->
     <div class="overlayui">
+		<img src="logo_2.jpg" alt="" class="logo">
+		<span class="link">
+			<a href="">abc</a>
+		</span>
+
+
+
+		<div class="info2">
+			<i class="fas">Our Clients</i>
+			<div class="inner-info">
+			  <div class="inner-info-txt">
+
+				<h2>How to guide</h2>
+				<p>
+				  A really simple and cool guide there was no need to change
+				  anything.
+				</p>
+			  </div>
+			  <iframe width="560" height="215" src="https://www.youtube.com/embed/POX3dT-pB4E" frameborder="0"
+				allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+		  </div>
 			<div class="btn-wraper">
 				<button class="btn left"> < </button>
 				<button class="btn middle"> + </button>
@@ -128,9 +181,9 @@
 
 	</script>
     <script src="./three.min copy.js"></script>
-    <script type="text/javascript" src="./physijs/physi.js"></script>
+    <!-- <script type="text/javascript" src="./physijs/physi.js"></script> -->
     <!-- <script type="text/javascript" src="https://rawgit.com/mrdoob/three.js/master/build/three.min.js"></script> -->
-    <script type="text/javascript" src="https://rawgit.com/mrdoob/three.js/master/build/three.min.js"></script>
+    <!-- <script type="text/javascript" src="https://rawgit.com/mrdoob/three.js/master/build/three.min.js"></script> -->
   <script src="tween.js"></script>
 
     <script src="./main.js" type="module"></script>

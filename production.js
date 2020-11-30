@@ -2165,6 +2165,7 @@ function onWindowResize() {
 //
 
 function animate() {
+
     renderer.clear();
     composer.render();
     requestAnimationFrame( animate );
