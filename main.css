@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap');
+
 body {
 	margin: 0;
 	background-color: #000;
 	color: #fff;
-	font-family: Monospace;
+	font-family: 'Montserrat', sans-serif;
 	font-size: 13px;
 	line-height: 24px;
 	overscroll-behavior: none;
@@ -178,3 +180,13 @@ a, button, input, select {
 	  height: 100%;;
 	  margin: 145px 375px;
   }
+
+  @media only screen and (max-width: 1024px){
+	.fas{
+		position: absolute;
+		bottom: 30px;
+		left: 40px;
+		width: 250px;
+		z-index: 9999;
+	};	
+};

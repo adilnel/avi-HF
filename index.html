@@ -7,7 +7,10 @@
 </head>
 <body>
   <style>
-    .overlayui{
+	html{
+		-webkit-font-smoothing: antialiased;
+	}
+	.overlayui{
       position: absolute;
       top: 0;
       left: 0;
@@ -26,7 +29,7 @@
 			position: absolute;
 			top :75px;
 			left: 75px;
-			width :29%;
+			width :165px;
 			height:auto;
 		  }
 
@@ -63,16 +66,26 @@
 height: 60px;
 }
 
-    </style>
+@media only screen and (max-width: 1024px){
+		.logo{
+			position: absolute;
+			top :20px;
+			left: 40px;
+			width :165px;
+			height:auto;
+		  };
+	};
+
+</style>
     <!-- <div id="container"></div> -->
     <div class="overlayui">
-		<img src="logo.svg" alt="" class="logo">
+		<img src="./logos/logo.svg" alt="" class="logo">
 		<span class="link">
 			<a href="">abc</a>
 		</span>
 
 
-		<a class="fas">Our Clients</a>
+		<a class="fas"><span style="font-weight: 700;">Our</span> Clients</a>
 		<div class="info2">
 
 			<div class="inner-info">
@@ -249,7 +262,7 @@ height: 60px;
 				fas.innerHTML = "Close";
 			}else{
 				inner_info.classList.remove("inner-info-hover")
-				fas.innerHTML = "Our Clients";
+				fas.innerHTML = "<span style=\"font-weight: 700;\">Our</span> Clients";
 				info2.classList.remove("transform")
 			}
 
